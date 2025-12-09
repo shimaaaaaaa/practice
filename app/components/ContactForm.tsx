@@ -1,8 +1,9 @@
 "use client";
+import contact from "@/app/lib/actions/contact";
 
 export default function ContactForm() {
   return (
-    <form action="">
+    <form action={contact}>
       <div className="py-24 text-gray-600">
         <div className="max-w-md mx-auto">
           <div className="text-center">
@@ -18,6 +19,8 @@ export default function ContactForm() {
               </label>
               <input
                 type="text"
+                id="name"
+                name="name"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
@@ -27,6 +30,8 @@ export default function ContactForm() {
               </label>
               <input
                 type="email"
+                id="email"
+                name="email"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
@@ -36,6 +41,8 @@ export default function ContactForm() {
               </label>
               <textarea
                 rows={4}
+                id="message"
+                name="message"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               ></textarea>
             </div>
