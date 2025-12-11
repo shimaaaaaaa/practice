@@ -9,7 +9,7 @@ export default function ContactForm() {
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-4">Contact Form</h2>
             <p className="text-gray-500 mb-6">
-              Fill out the form below to get in touch.
+              Fill out the form below to get in touch!
             </p>
           </div>
           <div className="space-y-4">
