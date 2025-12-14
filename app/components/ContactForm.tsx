@@ -1,9 +1,14 @@
 "use client";
 import contact from "@/app/lib/actions/contact";
+import { useActionState } from "react";
 
 export default function ContactForm() {
+  const [state, formAction] = useActionState(contact, {
+    success: false,
+    errors: {},
+  });
   return (
-    <form action={contact}>
+    <form action={formAction}>
       <div className="py-24 text-gray-600">
         <div className="max-w-md mx-auto">
           <div className="text-center">
@@ -23,6 +28,11 @@ export default function ContactForm() {
                 name="name"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
+              {state.errors.name && (
+                <p className="text-red-500 text-sm mt-1">
+                  {state.errors.name.join(",")}
+                </p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -34,6 +44,11 @@ export default function ContactForm() {
                 name="email"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
+              {state.errors.name && (
+                <p className="text-red-500 text-sm mt-1">
+                  {state.errors.email?.join(",")}
+                </p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
