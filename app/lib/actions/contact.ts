@@ -1,6 +1,6 @@
 "use server";
 import { redirect } from "next/navigation";
-import { ContactSchema } from "./validations/contacts";
+import { ContactSchema } from "../validations/contacts";
 
 type ActionState = {
   success: boolean;
