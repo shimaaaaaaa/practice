@@ -1,12 +1,41 @@
 "use client";
 import contact from "@/app/lib/actions/contact";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import z from "zod";
+import { ContactSchema } from "../lib/validations/contacts";
 
 export default function ContactForm() {
   const [state, formAction] = useActionState(contact, {
     success: false,
     errors: {},
   });
+
+  const [clientErrors, setClientErrors] = useState({ name: "", email: "" });
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    try {
+      if (name === "name") {
+        ContactSchema.pick({ name: true }).parse({ name: value });
+      }
+      if (name === "email") {
+        ContactSchema.pick({ email: true }).parse({ name: value });
+      }
+      setClientErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errorMessage = error.errors[0]?.message || "";
+        setClientErrors((prev) => ({
+          ...prev,
+          [name]: errorMessage,
+        }));
+      }
+    }
+  };
   return (
     <form action={formAction}>
       <div className="py-24 text-gray-600">
@@ -27,11 +56,15 @@ export default function ContactForm() {
                 id="name"
                 name="name"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                onBlur={handleBlur}
               />
               {state.errors.name && (
                 <p className="text-red-500 text-sm mt-1">
                   {state.errors.name.join(",")}
                 </p>
+              )}
+              {clientErrors.name && (
+                <p className="text-red-500 text-sm mt-1">{clientErrors.name}</p>
               )}
             </div>
             <div>
@@ -43,10 +76,16 @@ export default function ContactForm() {
                 id="email"
                 name="email"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                onBlur={handleBlur}
               />
-              {state.errors.name && (
+              {state.errors.email && (
                 <p className="text-red-500 text-sm mt-1">
                   {state.errors.email?.join(",")}
+                </p>
+              )}
+              {clientErrors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {clientErrors.email}
                 </p>
               )}
             </div>
