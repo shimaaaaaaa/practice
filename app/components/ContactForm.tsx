@@ -20,7 +20,7 @@ export default function ContactForm() {
         ContactSchema.pick({ name: true }).parse({ name: value });
       }
       if (name === "email") {
-        ContactSchema.pick({ email: true }).parse({ name: value });
+        ContactSchema.pick({ email: true }).parse({ email: value });
       }
       setClientErrors((prev) => ({
         ...prev,
@@ -42,9 +42,7 @@ export default function ContactForm() {
         <div className="max-w-md mx-auto">
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-4">Contact Form</h2>
-            <p className="text-gray-500 mb-6">
-              Fill out the form below to get in touch!
-            </p>
+            <p className="text-gray-500 mb-6">お問い合わせフォーム</p>
           </div>
           <div className="space-y-4">
             <div>
