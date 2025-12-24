@@ -18,7 +18,7 @@ export default async function contact(
   const validationResult = ContactSchema.safeParse({ name, email });
   if (!validationResult.success) {
     const errors = validationResult.error.flatten().fieldErrors;
-    console.log("ERROR: ", errors);
+    console.log("ERROR!: ", errors);
     return {
       success: false,
       errors: { name: errors.name || [], email: errors.email || [] },
